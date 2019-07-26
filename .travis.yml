@@ -9,7 +9,7 @@ before_install:
 script:
   - docker run -e CI=true kamilberdychowski/docker-complex-fibonacci-test npm test
 
-after-success:
+after_success:
  - docker build -t kamilberdychowski/docker-complex-fibonacci-client ./client
  - docker build -t kamilberdychowski/docker-complex-fibonacci-api ./api
  - docker build -t kamilberdychowski/docker-complex-fibonacci-worker ./worker
