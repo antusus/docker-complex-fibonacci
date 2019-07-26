@@ -15,7 +15,7 @@ after_success:
  - docker build -t kamilberdychowski/docker-complex-fibonacci-worker ./worker
  - docker build -t kamilberdychowski/docker-complex-fibonacci-nginx ./nginx
  # login to docker CLI
- - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" ---password-stdin
+ - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
  - docker push kamilberdychowski/docker-complex-fibonacci-client
  - docker push kamilberdychowski/docker-complex-fibonacci-api
  - docker push kamilberdychowski/docker-complex-fibonacci-worker
