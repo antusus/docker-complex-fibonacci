@@ -3,13 +3,11 @@ const keys = require('./keys');
 // express application setup
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 
 const app = express();
-app.use(cors);
 app.use(bodyParser.json());
 
-//postgres client setup
+// postgres client setup
 const { Pool } = require('pg');
 const pgClient = new Pool({
     user: keys.pgUser,
@@ -23,12 +21,15 @@ pgClient
     .query('CREATE TABLE IF NOT EXISTS values(number INT)')
     .catch((err) => console.error(err));
 
-//redis client and publisher
+// redis client and publisher
 const redis = require('redis');
 const redisClient = redis.createClient({
     host: keys.redisHost,
     port: keys.redisPort,
     retry_strategy: () => 1000
+});
+redisClient.on("error", function (err) {
+    console.log("Error in worker " + err);
 });
 const redisPublisher = redisClient.duplicate();
 
@@ -55,10 +56,8 @@ app.post('/values', async (req, res) => {
     }
     redisClient.hset('values', index, 'nothing yet...');
     redisPublisher.publish('insert', index);
-    pgClient.query('INSERT INTO VALUES(numer) VALUES($1)', [index]);
+    await pgClient.query('INSERT INTO VALUES(number) VALUES($1)', [index]);
     res.send({ working: true });
 });
 
-app.listen(5000, () => {
-    console.log('listening');
-});
+app.listen(keys.port, () => console.log(`Example app listening on port ${keys.port}!`))

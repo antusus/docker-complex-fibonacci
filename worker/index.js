@@ -3,8 +3,12 @@ const redis = require('redis')
 
 const redisClient = redis.createClient({
     host: keys.redisHost,
-    host: keys.redisPotr,
+    port: keys.redisPotr,
     retry_strategy: () => 1000
+});
+
+redisClient.on("error", function (err) {
+    console.log("Error in worker " + err);
 });
 
 const subscription = redisClient.duplicate();
@@ -16,6 +20,7 @@ function fib(index) {
 }
 
 subscription.on('message', (channel, message) => {
+    console.log('Revieved ' +  message);
     redisClient.hset('values', message, fib(parseInt(message)));
 });
 subscription.subscribe('insert');
