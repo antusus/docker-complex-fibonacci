@@ -19,3 +19,15 @@ services:
       - PGDATABASE=postgres
       - PGUSER=postgres
       - PGPASSWORD=postgres_password
+    client:
+      dockerfile: Dockerfile.dev
+      context: ./client
+      volumes:
+        - /app/node_modules
+        - ./client:/app
+    worker:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+      volumes:
+        - /app/node_modules
+        - ./worker:/app
