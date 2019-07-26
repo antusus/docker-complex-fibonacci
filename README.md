@@ -1,7 +1,7 @@
 # Client server application to calculate Fibonacci values
 ### From: Docker and Kubernetes: The Complete Guide Udemy course
 
-Uses Postgres and Redis as storage. Nginx to route requestss. Build with docker and docker-compose.
+Uses Postgres and Redis as storage. Nginx to route requests. Build with docker and docker-compose.
 
 ## To run application in development mode:
 `docker-compose -f docker-compose.dev.yml ACTION`
