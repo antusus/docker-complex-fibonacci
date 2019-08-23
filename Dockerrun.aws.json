@@ -5,19 +5,22 @@
             "name": "client",
             "image": "kamilberdychowski/docker-complex-fibonacci-client:latest",
             "hostname": "client",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name" : "api",
             "image": "kamilberdychowski/docker-complex-fibonacci-api:latest",
             "hostname": "api",
-            "essential": false 
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "worker",
             "image":"kamilberdychowski/docker-complex-fibonacci-worker:latest",
             "hostname": "worker",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "nginx",
@@ -33,7 +36,8 @@
             "links": [
                 "client",
                 "api"
-            ]
+            ],
+            "memory": 128
         }
     ]
 
