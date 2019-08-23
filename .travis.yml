@@ -21,7 +21,7 @@ after_success:
  - docker push kamilberdychowski/docker-complex-fibonacci-worker
  - docker push kamilberdychowski/docker-complex-fibonacci-nginx
  
- deploy:
+deploy:
   provider: elasticbeanstalk
   region: "eu-west-1"
   app: "multi-docker"
